@@ -1,36 +1,36 @@
-import 'package:kickoff/app/app.bottomsheets.dart';
-import 'package:kickoff/app/app.dialogs.dart';
+import 'dart:async';
+
 import 'package:kickoff/app/app.locator.dart';
-import 'package:kickoff/ui/common/app_strings.dart';
+import 'package:kickoff/app/app.logger.dart';
+import 'package:kickoff/model/product.dart';
+import 'package:kickoff/utilities/products_api.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 
-class HomeViewModel extends BaseViewModel {
-  final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
+import 'package:intl/intl.dart';
 
-  String get counterLabel => 'Counter is: $_counter';
+class HomeViewModel extends FutureViewModel {
+  final log = getLogger('HomeViewModel');
 
-  int _counter = 0;
+  final _productService = locator<ProductService>();
 
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
+  Product? _product;
+  Product get product => _product!;
+
+  Future<Product> getproductss() async {
+    // try {
+    Product result = await _productService.getProducts();
+
+    _product = result;
+    print(product);
+
+    return Future.value(_product);
   }
 
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Stacked Rocks!',
-      description: 'Give stacked $_counter stars on Github',
-    );
+  String formatPrice(double price) {
+    final formatter = NumberFormat('#,##0');
+    return formatter.format(price.toInt());
   }
 
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: ksHomeBottomSheetTitle,
-      description: ksHomeBottomSheetDescription,
-    );
-  }
+  @override
+  Future futureToRun() => getproductss();
 }
