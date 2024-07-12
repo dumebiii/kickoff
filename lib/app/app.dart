@@ -16,6 +16,7 @@ import 'package:kickoff/ui/views/checkout/checkout_view.dart';
     MaterialRoute(page: CheckoutView),
 // @stacked-route
   ],
+  logger: StackedLogger(),
   dependencies: [
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
