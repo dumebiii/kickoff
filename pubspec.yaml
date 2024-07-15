@@ -15,6 +15,8 @@ dependencies:
   logger: ^2.3.0
   dio: ^5.5.0+1
   intl: ^0.17.0
+  flutter_launcher_icons: ^0.13.1
+
 
 
 dev_dependencies:
@@ -24,6 +26,25 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   mockito: ^5.4.1
   stacked_generator: ^1.3.3
+
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/images/logo.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "path/to/image.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "path/to/image.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "path/to/image.png"
 
 
 flutter_native_splash:
@@ -181,4 +202,12 @@ flutter:
 
   assets:
     - assets/images/
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: font/Inter-Regular.ttf
+    - family: Rock
+      fonts:
+        - asset: font/ROCC____.TTF
 

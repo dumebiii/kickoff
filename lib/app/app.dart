@@ -6,6 +6,8 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:kickoff/ui/views/cart/cart_view.dart';
 import 'package:kickoff/ui/views/checkout/checkout_view.dart';
+import 'package:kickoff/ui/views/naver/naver_view.dart';
+import 'package:kickoff/ui/views/profile/profile_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -14,6 +16,8 @@ import 'package:kickoff/ui/views/checkout/checkout_view.dart';
     MaterialRoute(page: StartupView),
     MaterialRoute(page: CartView),
     MaterialRoute(page: CheckoutView),
+    MaterialRoute(page: NaverView),
+    MaterialRoute(page: ProfileView),
 // @stacked-route
   ],
   logger: StackedLogger(),

@@ -19,7 +19,7 @@ class ProductService implements Products {
   @override
   Future<Product> getProducts() async {
     const String getProductUrl =
-        "$kgetproductUrl?organization_id=$korganizationID&reverse_sort=false&page=1&size=10&Appid=$kappID&Apikey=$kApiKey";
+        "$kgetproductUrl?organization_id=$korganizationID&reverse_sort=false&page=1&size=20&Appid=$kappID&Apikey=$kApiKey";
 
     var api = _apiService.api;
 
