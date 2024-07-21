@@ -3,6 +3,7 @@ import 'package:kickoff/app/app.bottomsheets.dart';
 import 'package:kickoff/app/app.dialogs.dart';
 import 'package:kickoff/app/app.locator.dart';
 import 'package:kickoff/app/app.router.dart';
+import 'package:kickoff/ui/views/bottomnav.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 Future<void> main() async {
@@ -23,7 +24,8 @@ class MainApp extends StatelessWidget {
         primaryColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.naverView,
+      home: const Bottomnav(),
+      // initialRoute: Routes.naverView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,
       navigatorObservers: [

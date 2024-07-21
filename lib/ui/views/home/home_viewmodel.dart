@@ -1,41 +1,36 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:async/async.dart';
+import 'package:flutter/material.dart';
 import 'package:kickoff/app/app.locator.dart';
 import 'package:kickoff/app/app.logger.dart';
 import 'package:kickoff/app/app.router.dart';
 import 'package:kickoff/model/product.dart';
 import 'package:kickoff/utilities/products_api.dart';
 import 'package:kickoff/utilities/shared.dart';
-import 'package:stacked/stacked.dart';
 
-import 'package:intl/intl.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class HomeViewModel extends FutureViewModel {
+class HomeViewModel extends ChangeNotifier {
   final log = getLogger('HomeViewModel');
 
   final _productService = locator<ProductService>();
   final _navigationService = locator<NavigationService>();
-  final _shared = locator<Shared>();
+  final shared = locator<Shared>();
+
+  Product? savedproduct;
 
   Product? _product;
-  Product? get product => _product;
 
-  Future<Product> getproductss() async {
+  Future<Product?> getproductss() async {
     // try {
+
     Product result = await _productService.getProducts();
 
     _product = result;
 
-    print(product);
-
-    return Future.value(product);
-  }
-
-  String formatPrice(double price) {
-    final formatter = NumberFormat('#,##0');
-    return formatter.format(price.toInt());
+    return _product;
   }
 
   List<double> generateRatings(int itemCount) {
@@ -66,7 +61,7 @@ class HomeViewModel extends FutureViewModel {
       }
     }
     cart.add(item);
-    _shared.items = cart;
+    shared.items = cart;
     notifyListeners();
   }
 
@@ -74,7 +69,7 @@ class HomeViewModel extends FutureViewModel {
     for (var cartItem in cart) {
       if (cartItem.id == item.id) {
         cart.remove(cartItem);
-        _shared.items = cart;
+        shared.items = cart;
 
         notifyListeners();
         return;
@@ -86,15 +81,49 @@ class HomeViewModel extends FutureViewModel {
     return cart.any((cartItem) => cartItem.id == item.id);
   }
 
-  void toggleItemattractive() {
-    isattractive = !isattractive;
+  //CART PAGE
+
+  List<Item> liked = [];
+  // bool isattractive = false;
+
+  void addLikedItem(Item item) {
+    for (var likedItem in liked) {
+      if (likedItem.id == item.id) {
+        notifyListeners();
+        return;
+      }
+    }
+    liked.add(item);
+    shared.liked = liked;
     notifyListeners();
   }
+
+  void removeLikedItem(Item item) {
+    for (var cartItem in liked) {
+      if (cartItem.id == item.id) {
+        liked.remove(cartItem);
+        shared.liked = liked;
+
+        notifyListeners();
+        return;
+      }
+    }
+  }
+
+  bool isInLiked(Item item) {
+    return liked.any((likedItem) => likedItem.id == item.id);
+  }
+
+  // void toggleItemattractive() {
+  //   isattractive = !isattractive;
+  //   notifyListeners();
+  // }
 
   void navigateCart() {
     _navigationService.navigateToCartView();
   }
 
-  @override
-  Future futureToRun() => getproductss();
+  void navigateOrders() {
+    _navigationService.navigateToOrdersView();
+  }
 }

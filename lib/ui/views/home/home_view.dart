@@ -16,103 +16,121 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
-    print(viewModel.product);
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: kwhite,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          title: Column(
             children: [
-              Container(
-                height: 44,
-                width: 230,
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.grey, width: 1.0),
-                ),
-                child: const Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 20,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Search for anything',
-                          border: InputBorder.none,
+              verticalSpaceSmall,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 44,
+                    width: 230,
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(color: Colors.grey, width: 1.0),
+                    ),
+                    child: const Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: 20,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText: 'Search for anything',
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                        Icon(Icons.search),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          viewModel.navigateOrders();
+                        },
+                        child: const Text(
+                          'Order History',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green, // Change text color as needed
+                          ),
                         ),
                       ),
-                    ),
-                    Icon(Icons.search),
-                  ],
-                ),
-              ),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.notifications_none,
-                    size: 34,
-                  ),
-                  horizontalSpace(20),
-                  GestureDetector(
-                    onTap: () {
-                      viewModel.navigateCart();
-                    },
-                    child: SizedBox(
-                      height: 44,
-                      width: 44,
-                      child: Stack(
-                        children: [
-                          Container(
-                              height: 40,
-                              width: 44,
-                              child: Image.asset('assets/images/cart.png')),
-                          Positioned(
-                            top: -5,
-                            left: 28,
-                            child: Container(
-                              width: 20,
-                              height: 20,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: kwhite,
-                                border: Border.all(color: kgreen, width: 1),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  viewModel.cart.length.toString(),
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors
-                                        .black, // Change text color as needed
+                      horizontalSpace(20),
+                      GestureDetector(
+                        onTap: () {
+                          viewModel.navigateCart();
+                        },
+                        child: SizedBox(
+                          height: 44,
+                          width: 44,
+                          child: Stack(
+                            children: [
+                              Container(
+                                  height: 40,
+                                  width: 44,
+                                  child: Image.asset('assets/images/cart.png')),
+                              Positioned(
+                                top: -5,
+                                left: 28,
+                                child: Container(
+                                  width: 20,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: kwhite,
+                                    border: Border.all(color: kgreen, width: 1),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      viewModel.cart.length.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors
+                                            .black, // Change text color as needed
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  )
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ],
               ),
             ],
           ),
         ),
         body: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 5, left: 18, right: 18),
-            child: Column(
-              children: [
-                Image.asset('assets/images/hero.png'),
-                verticalSpaceSmall,
-                NewArrivals(viewModel: viewModel)
-              ],
-            ),
+          child: IndexedStack(
+            index: 0,
+            children: [
+              SingleChildScrollView(
+                padding: const EdgeInsets.only(top: 5, left: 18, right: 18),
+                child: Column(
+                  children: [
+                    Image.asset('assets/images/hero.png'),
+                    verticalSpaceSmall,
+                    NewArrivals(viewModel: viewModel)
+                  ],
+                ),
+              ),
+            ],
           ),
         ));
   }

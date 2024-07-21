@@ -703,6 +703,11 @@ class CheckoutView extends StackedView<CheckoutViewModel> {
                       ),
                       GestureDetector(
                         onTap: () {
+                          print('not yet bought ${viewModel.shared.bought}');
+
+                          viewModel.addtobought();
+                          print('bought  now ${viewModel.shared.bought}');
+
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

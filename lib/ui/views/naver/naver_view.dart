@@ -1,9 +1,8 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:kickoff/ui/common/app_colors.dart';
 import 'package:kickoff/ui/views/cart/cart_view.dart';
-import 'package:kickoff/ui/views/checkout/checkout_view.dart';
 import 'package:kickoff/ui/views/home/home_view.dart';
+import 'package:kickoff/ui/views/liked/liked_view.dart';
 import 'package:kickoff/ui/views/profile/profile_view.dart';
 import 'package:stacked/stacked.dart';
 
@@ -37,13 +36,13 @@ class NaverView extends StackedView<NaverViewModel> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.shopping_basket,
+              Icons.favorite,
             ),
             label: 'Cart',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.check_outlined,
+              Icons.shopping_bag,
             ),
             label: 'Checkout',
           ),
@@ -70,9 +69,9 @@ class NaverView extends StackedView<NaverViewModel> {
       case 0:
         return const HomeView();
       case 1:
-        return const CartView();
+        return const LikedView();
       case 2:
-        return const CheckoutView();
+        return const CartView();
       case 3:
         return const ProfileView();
 
